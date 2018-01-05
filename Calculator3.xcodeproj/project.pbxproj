@@ -12,6 +12,7 @@
 		831C71BE1FEC7035004FAF1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 831C71BC1FEC7035004FAF1B /* Main.storyboard */; };
 		831C71C01FEC7035004FAF1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 831C71BF1FEC7035004FAF1B /* Assets.xcassets */; };
 		831C71C31FEC7035004FAF1B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 831C71C11FEC7035004FAF1B /* LaunchScreen.storyboard */; };
+		831C71CB1FEC9F15004FAF1B /* CalculatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831C71CA1FEC9F15004FAF1B /* CalculatorModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		831C71BF1FEC7035004FAF1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		831C71C21FEC7035004FAF1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		831C71C41FEC7035004FAF1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		831C71CA1FEC9F15004FAF1B /* CalculatorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				831C71B81FEC7035004FAF1B /* AppDelegate.swift */,
 				831C71BA1FEC7035004FAF1B /* ViewController.swift */,
 				831C71BC1FEC7035004FAF1B /* Main.storyboard */,
+				831C71CA1FEC9F15004FAF1B /* CalculatorModel.swift */,
 				831C71BF1FEC7035004FAF1B /* Assets.xcassets */,
 				831C71C11FEC7035004FAF1B /* LaunchScreen.storyboard */,
 				831C71C41FEC7035004FAF1B /* Info.plist */,
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				831C71CB1FEC9F15004FAF1B /* CalculatorModel.swift in Sources */,
 				831C71BB1FEC7035004FAF1B /* ViewController.swift in Sources */,
 				831C71B91FEC7035004FAF1B /* AppDelegate.swift in Sources */,
 			);
