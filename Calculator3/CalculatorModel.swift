@@ -10,18 +10,7 @@ import Foundation
 
 struct CalculatorModel {
     
-    var numberFormatter: NumberFormatter?
-    
-    private var accumulator: Double?
-    
-    private var formattedAccumulator: String? {
-        if let number = accumulator {
-            return numberFormatter?.string(from: number as NSNumber) ?? String(number)
-        }
-        else {
-            return nil
-        }
-    }
+    var numberFormatter = NumberFormatter()
     
     var result: Double? {
         return accumulator
@@ -32,7 +21,7 @@ struct CalculatorModel {
     }
     
     var description: String {
-        var outputString = " "
+        var outputString = ""
         for element in descriptions {
             outputString += element
         }
@@ -48,7 +37,7 @@ struct CalculatorModel {
     }
     
     mutating func clear() {
-        accumulator = 0.0
+        accumulator = nil
         pendingBinaryOperation = nil
         descriptions = []
     }
@@ -59,10 +48,10 @@ struct CalculatorModel {
             case .constant(let value):
                 accumulator = value
                 descriptions.append(symbol)
-            case .unaryOperation(let function):
+            case .unaryOperation(let function, let descriptionFunction):
                 if accumulator != nil {
                     accumulator = function(accumulator!)
-                    descriptions.append(symbol)
+                    descriptions = [descriptionFunction(description)]
                 }
             case .binaryOperation(let function):
                 if resultIsPending {
@@ -83,9 +72,20 @@ struct CalculatorModel {
     
     private var descriptions = [String]()
     
+    private var accumulator: Double?
+    
+    private var formattedAccumulator: String? {
+        if let number = accumulator {
+            return numberFormatter.string(from: number as NSNumber) ?? String(number)
+        }
+        else {
+            return nil
+        }
+    }
+    
     private enum Operation {
         case constant(Double)
-        case unaryOperation((Double) -> Double)
+        case unaryOperation(((Double) -> Double), (String) -> String)
         case binaryOperation((Double, Double) -> Double)
         case equals
     }
@@ -93,10 +93,10 @@ struct CalculatorModel {
     private var operations: Dictionary<String, Operation> =
     [
         "π": Operation.constant(Double.pi),
-        "√": Operation.unaryOperation(sqrt),
-        "±": Operation.unaryOperation({ -$0 }),
-        "x²": Operation.unaryOperation({ $0 * $0}),
-        "x⁻¹": Operation.unaryOperation({ 1 / $0 }),
+        "√": Operation.unaryOperation(sqrt, { "√(\($0))" }),
+        "±": Operation.unaryOperation({ -$0 }, { "-(\($0))"  }),
+        "x²": Operation.unaryOperation({ $0 * $0 }, { "(\($0))²"}),
+        "x⁻¹": Operation.unaryOperation({ 1 / $0 }, {"(\($0))⁻¹"}),
         "+": Operation.binaryOperation(+),
         "-": Operation.binaryOperation(-),
         "×": Operation.binaryOperation(*),
@@ -116,10 +116,11 @@ struct CalculatorModel {
     private var pendingBinaryOperation: PendingBinaryOperation?
     
     private mutating func performPendingBinaryOperation() {
-        if resultIsPending && accumulator != nil {
-            accumulator = pendingBinaryOperation!.perform(with: accumulator!)
-            pendingBinaryOperation = nil
-        }
+        guard resultIsPending && accumulator != nil else { return }
+        
+        accumulator = pendingBinaryOperation!.perform(with: accumulator!)
+        pendingBinaryOperation = nil
+        
     }
 
 

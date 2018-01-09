@@ -89,6 +89,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        history.text = " "
         numberFormatter.alwaysShowsDecimalSeparator = false
         numberFormatter.maximumFractionDigits = 6
         numberFormatter.minimumFractionDigits = 0
